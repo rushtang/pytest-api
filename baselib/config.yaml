@@ -1,0 +1,29 @@
+﻿http.url.ClientService: http://localhost:8080/xw/ClientService
+http.admin_url:  http://localhost:8081/xwAdmin/AdminService
+http.url: http://localhost:8080/xw/ClientService
+http.msg_url: http://localhost:8080/xwmsg/MsgService
+http.url.MerchantService:  http://localhost:8080/xw/MerchantService
+http.url.statistic: http://localhost:5050/statistic/StatisService
+
+mysql.sys: '"C:\Users\Administrator\Downloads\mysql5.5.9\mysql5.5.9\bin\mysql"'
+mysql.host: 'localhost'
+mysql.port: '3308'
+mysql.user: root
+mysql.password: '123456'
+mysql.db: xw
+mysql.delete: C:\Users\Administrator\PycharmProjects\apitest\delete.sql
+mysql.restore: C:\Users\Administrator\PycharmProjects\apitest\restore_new(1).sql
+
+employee_user_admin: 13794491000
+employee_user_admin2: 13794491004
+employee_user1: 13794491001
+employee_user2: 13794491002
+employee_user3: 13794491003
+employee_user4: 13794495000
+admin_user: 13511111111
+pre.merchant: 13550234762
+http.merchant: http://localhost:8080/xw/MerchantService
+pre.promo_code: 2333
+pre.password: 123456
+
+SmsServlet: http://localhost:8080/xw/SmsServlet
