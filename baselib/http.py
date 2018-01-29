@@ -135,18 +135,17 @@ class Jsonrpc(Httptest):
             "method": method,
             "params": args if args else kwargs
         }
-        req_log="""接口请求==================================\n
-        url:{}\n
+        req_log="""{}接口请求---------------------:\n
         {}\n
-        """.format(url,str(payload))
+        """.format(str(method),str(payload))
 
         logging.info(msg=req_log)
 
         self.resp = requests.post(url, data=json.dumps(payload), headers=headers)
         try:
-            resp_log="""接口返回------------------------------\n
+            resp_log="""{}接口返回+++++++++++++++++++\n
             {}\n
-            """.format(self.resp.text)
+            """.format(str(method),self.resp.text)
             logging.info(msg=resp_log)
 
         except JSONDecodeError as e:

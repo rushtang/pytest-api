@@ -3,6 +3,7 @@ from datetime import datetime,timedelta
 from faker import Factory
 from baselib.utils import delete_exec
 from baselib.http import Jsonrpc
+from apilib.base import User
 import random,pytest
 
 
@@ -12,7 +13,9 @@ def cleandata_suit():
     delete_exec(test)
 
 
+
 class Base_test():
+
 
     @pytest.fixture(scope='function',autouse=True)
     def clean_case(self):
@@ -22,11 +25,9 @@ class Base_test():
     def test(self):
         return Jsonrpc()
 
-
-
-
-
-
+    @property
+    def user0(self):
+        return User(self.test, num=0)
 
 
 

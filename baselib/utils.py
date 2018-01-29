@@ -10,7 +10,11 @@ class Api_rpc():
         self.test=test
 
     def _run_api(self,method,params_yaml, URL=None, is_result=True):
+
         params = yaml.load(params_yaml)
+        if params.get('anchor')!=None:
+            params.pop('anchor')
+        #清除参数中的锚点
         if URL == None:
             URL = self.URL
         test=self.test
@@ -22,6 +26,22 @@ class Api_rpc():
         else:
             test.assert_jsonrpc_has_error('返回应该有error')
             return test.rpc_error
+
+
+def params_anchor(params_dict):
+    #用于在yaml格式中加入键值对
+    anchor = " "
+    if params_dict!=None:
+        for key, value in params_dict.items():
+            anchor = anchor + '{}: {}, '.format(key, value)
+
+    return anchor
+
+
+
+
+
+
 
 
 def mysql_exec(test,source,db='xw'):
