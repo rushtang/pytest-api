@@ -28,19 +28,30 @@ class Api_rpc():
             return test.rpc_error
 
 
-def params_anchor(params_dict):
-    #用于在yaml格式中加入键值对
-    anchor = " "
-    if params_dict!=None:
-        for key, value in params_dict.items():
-            anchor = anchor + '{}: {}, '.format(key, value)
+    def params_anchor(self,params_dict):
+        #用于在yaml格式中加入键值对(value为非复合结构的)
+        anchor = " "
+        if params_dict!=None:
+            for key, value in params_dict.items():
 
-    return anchor
+                if type(value)==str and value.isdigit():
+                    anchor = anchor + "{}: '{}', ".format(key, value)
+                else:
+                    anchor = anchor + "{}: {}, ".format(key, value)
 
+        return anchor
 
-
-
-
+    def params_anchor_list(self,params_dict):
+        #用于在yaml格式中加入list,params_dict为list(value为非复合结构的)
+        anchor = '[]'
+        if params_dict!=None:
+            anchor=str(params_dict)
+        return anchor
+    def params_anchor_yaml(self,params):
+        anchor=''
+        if params!=None:
+            anchor=yaml.dump(params)
+        return anchor
 
 
 

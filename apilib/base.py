@@ -13,11 +13,14 @@ class User(Api_rpc):
             self.account=test.config.get('employee_user_admin')
         else:
             self.account = test.config.get('employee_user'+str(num))
-
+        self._session=None
 
     @property
     def sessionid(self):
-        return self.login(self.account)
+        if self._session==None:
+            self._session=self.login(self.account)
+
+        return self._session
 
     @property
     def id(self):
@@ -44,3 +47,4 @@ class User(Api_rpc):
 
         # 通常返回 id  nickname  mobile  employeeId
         return self.test.rpc_result[get]
+

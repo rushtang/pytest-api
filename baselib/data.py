@@ -5,29 +5,61 @@ from baselib.utils import delete_exec
 from baselib.http import Jsonrpc
 from apilib.base import User
 import random,pytest
+from functools import wraps
 
 
-@pytest.fixture()
-def cleandata_suit():
-    test=Jsonrpc()
-    delete_exec(test)
+class Singleton(object):
+    #单例类
+    _instance = None
+    def __new__(cls, *args, **kw):
+        if not cls._instance:
+            cls._instance = super(Singleton, cls).__new__(cls, *args, **kw)
+        return cls._instance
 
+
+class Jsonrpc_Singleton(Jsonrpc,Singleton):
+    pass
+
+
+def singleton(cls):
+    #单例装饰器
+    instances = {}
+    @wraps(cls)
+    def getinstance(*args, **kw):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kw)
+        return instances[cls]
+    return getinstance
+
+@singleton
+class User_singleton(User):
+    pass
 
 
 class Base_test():
 
 
-    @pytest.fixture(scope='function',autouse=True)
+    @pytest.fixture(scope='class',autouse=True)
+    def clean_data(self):
+        delete_exec(self.test)
+
+    @pytest.fixture(scope='function')
     def clean_case(self):
         delete_exec(self.test)
 
+
     @property
     def test(self):
-        return Jsonrpc()
+        return Jsonrpc_Singleton()
 
     @property
     def user0(self):
-        return User(self.test, num=0)
+        return User_singleton(self.test, num=0)
+
+    @property
+    def user1(self):
+        return User_singleton(self.test, num=1)
+
 
 
 
