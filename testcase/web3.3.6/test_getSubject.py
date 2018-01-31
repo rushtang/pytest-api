@@ -126,8 +126,9 @@ class Test_setUserAuth(Base_test):
         #正常设置一个科目全部权限
         user1Id=self.user1.id
         limitUpper=10000
-        codes=[{1001:limitUpper},{1002:limitUpper},{1003:limitUpper},{1004:limitUpper},{1005:limitUpper},{1006:limitUpper},
-               {1007: limitUpper},{1008: limitUpper}]
+        codes=[{"code":1001,"limitUpper":limitUpper},{"code":1002,"limitUpper":limitUpper},{"code":1003,"limitUpper":limitUpper},
+               {"code":1004,"limitUpper":limitUpper},{"code":1005,"limitUpper":limitUpper},
+               {"code":1006,"limitUpper":limitUpper},{"code":1007,"limitUpper":limitUpper}]
         result=Budget(self.test).setUserAuth(self.user0.sessionid,user1Id,subjectId,codes)
 
 class Test_listMySubject(Base_test):
@@ -148,11 +149,12 @@ class Test_listMySubject(Base_test):
         #给user1授权
         user1Id = self.user1.id
         limitUpper = 10000
-        codes = [{1001: limitUpper}, {1002: limitUpper}, {1003: limitUpper}, {1004: limitUpper}, {1005: limitUpper},
-                 {1006: limitUpper},
-                 {1007: limitUpper}, {1008: limitUpper}]
+        codes = [{"code": 1001, "limitUpper": limitUpper}, {"code": 1002, "limitUpper": limitUpper},
+                 {"code": 1003, "limitUpper": limitUpper},
+                 {"code": 1004, "limitUpper": limitUpper}, {"code": 1005, "limitUpper": limitUpper},
+                 {"code": 1006, "limitUpper": limitUpper}, {"code": 1007, "limitUpper": limitUpper}]
         result = Budget(self.test).setUserAuth(self.user0.sessionid, user1Id, subjectId, codes)
-        return result
+        return user1Id
     def test_data(self,setUserAuth):
 
         print('生成测试数据: {}'.format(str(setUserAuth)))
@@ -163,5 +165,14 @@ class Test_listMySubject(Base_test):
 
         result=Budget(self.test).listMySubject(self.user1.sessionid,userId=0)
         print(result)
+
+
+
+    def test_case2(self):
+        #正常获取科目限权表,userId不为0时
+
+        result=Budget(self.test).listMySubject(self.user0.sessionid,userId=self.user1.id)
+        print(result)
+
 
 
