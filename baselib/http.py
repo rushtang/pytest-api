@@ -1,6 +1,6 @@
 import  requests,uuid,re,collections,json
 from json import JSONDecodeError
-import logging,yaml
+import logging,yaml,os
 import pytest,sys
 from baselib.verify import verify
 
@@ -20,7 +20,9 @@ class Httptest():
     def config(self):
 
         if self._config==None:
-            with open(r'C:\Users\Administrator\PycharmProjects\pytest_demo\baselib\config.yaml') as fp:
+            path=os.path.dirname(os.path.realname(__file__))
+            configpath=os.path.join(path,'config.yaml')
+            with open(configpath) as fp:
                 self._config=yaml.load(fp.read())
 
         return self._config
